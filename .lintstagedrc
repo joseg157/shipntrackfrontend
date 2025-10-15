@@ -1,0 +1,3 @@
+{
+  "*.{js,ts,tsx,jsx}": ["pnpm lint:check", "pnpm format:check"]
+}
