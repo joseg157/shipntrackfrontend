@@ -1,6 +1,10 @@
 @layer theme, base, mui, components, utilities;
 @import 'tailwindcss' prefix(tw);
 
+@theme {
+  --spacing-topbar: 4rem; /* 64px */
+}
+
 @theme inline {
   /* Material UI typography */
   --font-h1: var(--mui-font-h1);
@@ -40,9 +44,7 @@
   --color-secondary: rgb(var(--mui-palette-secondary-mainChannel));
   --color-secondary-light: rgb(var(--mui-palette-secondary-lightChannel));
   --color-secondary-dark: rgb(var(--mui-palette-secondary-darkChannel));
-  --color-secondary-contrast: rgb(
-    var(--mui-palette-secondary-contrastTextChannel)
-  );
+  --color-secondary-contrast: rgb(var(--mui-palette-secondary-contrastTextChannel));
 
   /* Material UI status colors */
   --color-info: rgb(var(--mui-palette-info-mainChannel));
@@ -131,9 +133,7 @@
 
   /* Button */
   --color-Button-inheritContained: var(--mui-palette-Button-inheritContainedBg);
-  --color-Button-inheritContainedHover: var(
-    --mui-palette-Button-inheritContainedHoverBg
-  );
+  --color-Button-inheritContainedHover: var(--mui-palette-Button-inheritContainedHoverBg);
 
   /* Chip */
   --color-Chip-defaultBorder: var(--mui-palette-Chip-defaultBorder);
@@ -147,9 +147,7 @@
 
   /* LinearProgress */
   --color-LinearProgress-primary: var(--mui-palette-LinearProgress-primaryBg);
-  --color-LinearProgress-secondary: var(
-    --mui-palette-LinearProgress-secondaryBg
-  );
+  --color-LinearProgress-secondary: var(--mui-palette-LinearProgress-secondaryBg);
   --color-LinearProgress-error: var(--mui-palette-LinearProgress-errorBg);
   --color-LinearProgress-info: var(--mui-palette-LinearProgress-infoBg);
   --color-LinearProgress-success: var(--mui-palette-LinearProgress-successBg);
@@ -171,9 +169,7 @@
   --color-SnackbarContent-text: var(--mui-palette-SnackbarContent-color);
 
   /* SpeedDialAction */
-  --color-SpeedDialAction-fabHover: var(
-    --mui-palette-SpeedDialAction-fabHoverBg
-  );
+  --color-SpeedDialAction-fabHover: var(--mui-palette-SpeedDialAction-fabHoverBg);
 
   /* StepConnector & StepContent */
   --color-StepConnector-border: var(--mui-palette-StepConnector-border);
@@ -181,23 +177,13 @@
 
   /* Switch */
   --color-Switch-default: var(--mui-palette-Switch-defaultColor);
-  --color-Switch-defaultDisabled: var(
-    --mui-palette-Switch-defaultDisabledColor
-  );
-  --color-Switch-primaryDisabled: var(
-    --mui-palette-Switch-primaryDisabledColor
-  );
-  --color-Switch-secondaryDisabled: var(
-    --mui-palette-Switch-secondaryDisabledColor
-  );
+  --color-Switch-defaultDisabled: var(--mui-palette-Switch-defaultDisabledColor);
+  --color-Switch-primaryDisabled: var(--mui-palette-Switch-primaryDisabledColor);
+  --color-Switch-secondaryDisabled: var(--mui-palette-Switch-secondaryDisabledColor);
   --color-Switch-errorDisabled: var(--mui-palette-Switch-errorDisabledColor);
   --color-Switch-infoDisabled: var(--mui-palette-Switch-infoDisabledColor);
-  --color-Switch-successDisabled: var(
-    --mui-palette-Switch-successDisabledColor
-  );
-  --color-Switch-warningDisabled: var(
-    --mui-palette-Switch-warningDisabledColor
-  );
+  --color-Switch-successDisabled: var(--mui-palette-Switch-successDisabledColor);
+  --color-Switch-warningDisabled: var(--mui-palette-Switch-warningDisabledColor);
 
   /* TableCell */
   --color-TableCell-border: var(--mui-palette-TableCell-border);

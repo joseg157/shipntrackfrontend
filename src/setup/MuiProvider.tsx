@@ -1,10 +1,6 @@
 import { useMemo } from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import {
-  StyledEngineProvider,
-  ThemeProvider,
-  type Theme,
-} from '@mui/material/styles';
+import { StyledEngineProvider, ThemeProvider, type Theme } from '@mui/material/styles';
 import GlobalStyles from '@mui/material/GlobalStyles';
 
 import CssBaseline from '@mui/material/CssBaseline';
@@ -18,7 +14,7 @@ interface MuiProviderProps {
 }
 
 function MuiProvider({ children }: MuiProviderProps) {
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: light)');
 
   const defaultTheme = useMemo<Theme>(
     () => createDefaultThemeMode(prefersDarkMode ? 'dark' : 'light'),
@@ -30,9 +26,7 @@ function MuiProvider({ children }: MuiProviderProps) {
       <GlobalStyles styles="@layer theme, base, mui, components, utilities;" />
       <ThemeProvider theme={defaultTheme}>
         <CssBaseline />
-        <LocalizationProvider dateAdapter={AdapterMoment}>
-          {children}
-        </LocalizationProvider>
+        <LocalizationProvider dateAdapter={AdapterMoment}>{children}</LocalizationProvider>
       </ThemeProvider>
     </StyledEngineProvider>
   );

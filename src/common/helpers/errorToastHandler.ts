@@ -12,8 +12,7 @@ const errorToastHandler = (error: Error | AxiosError) => {
 
   const response = error?.response?.data as ErrorResponse | string | undefined;
 
-  const errorMessage =
-    typeof response === 'string' ? response : response?.message;
+  const errorMessage = typeof response === 'string' ? response : response?.message;
 
   toast.error(errorMessage || error?.message || 'An unexpected error occurred');
 };

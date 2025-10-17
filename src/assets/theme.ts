@@ -42,6 +42,12 @@ const createDefaultThemeMode = (mode: 'light' | 'dark') =>
           },
         },
       },
+
+      MuiPaper: {
+        defaultProps: {
+          elevation: 2,
+        },
+      },
     },
   });
 

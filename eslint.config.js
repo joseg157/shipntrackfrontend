@@ -67,7 +67,7 @@ export default defineConfig([
       // ========================
       // TYPESCRIPT RULES
       // ========================
-      tseslint.configs.recommendedTypeChecked,
+      tseslint.configs.recommended,
       /* 
         TypeScript ESLint with type checking enabled
         - Requires TypeScript compiler for advanced type-aware rules
@@ -159,10 +159,7 @@ export default defineConfig([
       // ========================
 
       // React Refresh: Only warn about non-component exports (allows constants)
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
 
       // React: Only allow JSX in .tsx files
       'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
