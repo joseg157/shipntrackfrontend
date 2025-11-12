@@ -1,6 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 
-import type { FormContextValues } from '../types/form.types';
+import type { FormContextValues } from '../interfaces/form.types';
 
 const useCustomFormContext = <T extends Record<string, unknown>>() => {
   const context = useFormContext<T>() as FormContextValues<T> | undefined;

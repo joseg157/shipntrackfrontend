@@ -2,7 +2,7 @@ import { FormProvider, useForm, type FieldValues } from 'react-hook-form';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
-import type { FormProps, FormContextValues } from '../types/form.types';
+import type { FormProps, FormContextValues } from '../interfaces/form.types';
 
 function Form<T extends FieldValues>({
   defaultValues,

@@ -1,5 +1,7 @@
 import { createBrowserRouter, type RouteObject } from 'react-router';
 
+// Protected routes
+import MainLayout from '@layouts/MainLayout';
 import Home from '@pages/Home';
 
 // Public routes
@@ -22,7 +24,7 @@ const publicRoutes: RouteObject[] = [
 
 const router = createBrowserRouter([
   { element: <PublicLayout />, children: publicRoutes },
-  ...protectedRoutes,
+  { element: <MainLayout />, children: protectedRoutes },
 ]);
 
 export default router;

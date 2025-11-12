@@ -10,12 +10,12 @@ import {
   Link as MuiLink,
   Backdrop,
   CircularProgress,
-  TextField,
 } from '@mui/material';
 
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 
 import withDocumentTitle from '@components/withDocumentTitle';
+import Copyright from '@components/Copyright';
 import { Form, createRHFController } from '@features/form';
 // eslint-disable-next-line import/no-unresolved
 import LogisticsSupplyChainImg from '/images/logist_supply_chain.jpeg';
@@ -44,7 +44,7 @@ function Login() {
   };
 
   return (
-    <div className="tw:flex tw:h-[calc(100dvh-var(--tw-spacing-topbar))]">
+    <div className="tw:flex tw:h-screen-without-topbar">
       <Backdrop open={false}>
         <CircularProgress color="inherit" />
       </Backdrop>
@@ -73,15 +73,15 @@ function Login() {
               <RHFController
                 name="username"
                 label="Username"
-                component={TextField}
+                componentType="textfield"
                 rules={{ required: 'Username is required' }}
               />
 
               <RHFController
                 name="password"
+                componentType="textfield"
                 label="Password"
                 type={showPassword ? 'text' : 'password'}
-                component={TextField}
                 rules={{ required: 'Password is required' }}
                 slotProps={{
                   input: {
@@ -124,6 +124,10 @@ function Login() {
               </MuiLink>
             </Typography>
           </Paper>
+
+          <div className="tw:mt-2 tw:text-center">
+            <Copyright />
+          </div>
         </div>
       </div>
     </div>

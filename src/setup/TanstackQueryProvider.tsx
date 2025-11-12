@@ -1,14 +1,13 @@
 import { QueryClient, QueryClientProvider, QueryCache, MutationCache } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import errorToastHandler from '@helpers/errorToastHandler';
+import errorToastHandler from '@utils/errorToastHandler';
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      ...(import.meta.env.DEV
-        ? { refetchOnWindowFocus: false, refetchOnMount: false }
-        : { refetchOnWindowFocus: true, retry: 2, refetchOnMount: false }),
+      refetchOnWindowFocus: false,
+      retry: 2,
     },
   },
   queryCache: new QueryCache({

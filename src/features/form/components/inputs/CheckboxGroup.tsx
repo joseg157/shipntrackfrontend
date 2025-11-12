@@ -78,4 +78,4 @@ function CheckboxGroup({
   );
 }
 
-export { CheckboxGroup, type CheckboxGroupProps, type CheckboxGroupOption };
+export { CheckboxGroup, type CheckboxGroupOption };

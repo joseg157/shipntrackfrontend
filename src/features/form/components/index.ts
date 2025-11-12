@@ -1,3 +1,3 @@
 export * from './Form';
-export * from './createRHFController';
-export * from './CheckboxGroup';
+export * from './inputs/createRHFController';
+export * from './inputs/CheckboxGroup';

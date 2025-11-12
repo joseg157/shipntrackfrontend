@@ -1,8 +1,17 @@
 @layer theme, base, mui, components, utilities;
 @import 'tailwindcss' prefix(tw);
 
+:root {
+  --spacing-topbar: 4rem; /* 64px */
+}
+
 @theme {
   --spacing-topbar: 4rem; /* 64px */
+
+  --spacing-screen-without-topbar: calc(100dvh - var(--spacing-topbar));
+
+  --spacing-drawer-mini-width: 4rem; /* 64px */
+  --spacing-drawer-width: 13.125rem; /* 210px */
 }
 
 @theme inline {
