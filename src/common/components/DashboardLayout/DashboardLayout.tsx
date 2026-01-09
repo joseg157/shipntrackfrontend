@@ -199,7 +199,7 @@ function DashboardLayout({
         variant="temporary"
         open={isMobileSidebarExpanded}
         onClose={handleSetNavigationExpanded(false)}
-        className="tw:block tw:flex-shrink-0 tw:sm:hidden"
+        className="tw:block tw:shrink-0 tw:sm:hidden"
         ModalProps={{ keepMounted: true }} // Better open performance on mobile.
         sx={getSidebarSharedSx(false, true)}
       >
@@ -222,7 +222,7 @@ function DashboardLayout({
       {/* Laptop */}
       <Sidebar
         variant="permanent"
-        className="tw:hidden tw:flex-shrink-0 tw:md:block"
+        className="tw:hidden tw:shrink-0 tw:md:block"
         sx={getSidebarSharedSx(!isDesktopSidebarExpanded)}
       >
         {renderSidebarContent(

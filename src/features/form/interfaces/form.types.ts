@@ -29,7 +29,7 @@ export interface FormProps<TFieldValues extends FieldValues> {
   slotProps?: {
     formContainerProps?: React.HTMLAttributes<HTMLFormElement>;
     titleProps?: TypographyProps;
-    submitButtonProps?: ButtonProps;
+    submitButtonProps?: ButtonProps & { hideSubmitButton?: boolean };
     resetButtonProps?: ButtonProps & { hideResetButton?: boolean };
   };
 }

@@ -7,11 +7,16 @@ import Home from '@pages/Home';
 // Public routes
 import PublicLayout from '@layouts/PublicLayout';
 import Login from '@pages/Login';
+import NotFound from '@pages/NotFound';
 
 const protectedRoutes: RouteObject[] = [
   {
     path: '/',
     element: <Home />,
+  },
+  {
+    path: '*',
+    element: <NotFound />,
   },
 ];
 

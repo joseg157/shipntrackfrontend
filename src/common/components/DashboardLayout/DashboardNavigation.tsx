@@ -1,4 +1,5 @@
 import { Fragment, useState, useCallback } from 'react';
+import { useNavigate } from 'react-router';
 import {
   Box,
   List,
@@ -37,8 +38,10 @@ interface DashboardNavigationProps {
   currentPath: string;
 }
 
-interface SidebarPageItemProps
-  extends Omit<DashboardNavigationProps, 'navigationItems' | 'hasSidebarTransition' | 'isPopover'> {
+interface SidebarPageItemProps extends Omit<
+  DashboardNavigationProps,
+  'navigationItems' | 'hasSidebarTransition' | 'isPopover'
+> {
   id: string;
   item: NavigationPageItem;
 }
@@ -57,11 +60,15 @@ function SidebarPageItem({
 }: SidebarPageItemProps) {
   const { title, icon, path, children } = item;
   const [hoveredMiniSidebarItemId, setHoveredMiniSidebarItemId] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const [expanded, setExpanded] = useState(false);
 
   const handlePageItemClick = () => {
     onLinkClick?.();
+    // if path is the current path, do nothing
+    if (path === currentPath || !path) return;
+    navigate(path);
   };
 
   let nestedNavigationCollapseSx: SxProps<Theme> = { display: 'none' };
@@ -127,13 +134,10 @@ function SidebarPageItem({
           placement="bottom"
         >
           <ListItemButton
-            className={cn('tw:rounded-lg tw:px-2', {
+            className={cn('tw:min-h-10 tw:rounded-lg tw:p-0 tw:px-2', {
               'tw:bg-sky-300/60 tw:text-black': path && isActiveLink(currentPath || '', path || ''),
             })}
             onClick={children ? undefined : handlePageItemClick}
-            sx={{
-              height: 40,
-            }}
           >
             {(icon || isMini) && (
               <Box

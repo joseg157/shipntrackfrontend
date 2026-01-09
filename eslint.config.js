@@ -79,7 +79,7 @@ export default defineConfig([
       // ========================
       // REACT HOOKS RULES
       // ========================
-      reactHooks.configs['recommended-latest'],
+      reactHooks.configs.flat['recommended-latest'],
       /* 
         Rules of Hooks from react-hooks/eslint-plugin
         - Enforces Rules of Hooks: https://reactjs.org/docs/hooks-rules.html

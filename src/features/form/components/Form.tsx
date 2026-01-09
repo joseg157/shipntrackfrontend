@@ -38,6 +38,12 @@ function Form<T extends FieldValues>({
     reset(defaultValues);
   };
 
+  const { resetButtonProps, submitButtonProps } = slotProps;
+  const { hideResetButton = true, ...restResetButtonProps } = resetButtonProps || {};
+  const { hideSubmitButton = true, ...restSubmitButtonProps } = submitButtonProps || {};
+
+  const shouldHideBothButtons = Boolean(hideResetButton && hideSubmitButton);
+
   return (
     <FormProvider {...formContextValues}>
       <form
@@ -59,26 +65,21 @@ function Form<T extends FieldValues>({
         {children}
 
         {footer ||
-          (readOnly ? null : (
+          (readOnly || shouldHideBothButtons ? null : (
             <div className="tw:flex tw:justify-end tw:gap-2">
-              {!slotProps?.resetButtonProps?.hideResetButton && (
+              {!hideResetButton && (
                 <Button
                   variant="outlined"
                   color="secondary"
                   type="button"
-                  {...slotProps?.resetButtonProps}
+                  {...restResetButtonProps}
                   onClick={onReset}
                 >
                   {resetButtonText}
                 </Button>
               )}
 
-              <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-                {...slotProps?.submitButtonProps}
-              >
+              <Button variant="contained" color="primary" type="submit" {...restSubmitButtonProps}>
                 {submitButtonText}
               </Button>
             </div>
