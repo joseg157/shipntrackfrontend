@@ -17,8 +17,6 @@ import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 import withDocumentTitle from '@components/withDocumentTitle';
 import Copyright from '@components/Copyright';
 import { Form, createRHFController } from '@features/form';
-// eslint-disable-next-line import/no-unresolved
-import LogisticsSupplyChainImg from '/images/logist_supply_chain.jpeg';
 
 type LoginRequest = {
   username: string;
@@ -51,7 +49,7 @@ function Login() {
 
       <div className="tw:hidden tw:flex-1 tw:lg:block tw:lg:flex-3">
         <img
-          src={LogisticsSupplyChainImg}
+          src="/images/logist_supply_chain.jpeg"
           alt="Logistics Supply Chain"
           loading="lazy"
           className="tw:inset-0 tw:h-full tw:w-full tw:object-cover"

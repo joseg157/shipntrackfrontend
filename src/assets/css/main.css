@@ -2,11 +2,11 @@
 @import 'tailwindcss' prefix(tw);
 
 :root {
-  --spacing-topbar: 4rem; /* 64px */
+  --spacing-topbar: 3rem;
 }
 
 @theme {
-  --spacing-topbar: 4rem; /* 64px */
+  --spacing-topbar: var(--spacing-topbar);
 
   --spacing-screen-without-topbar: calc(100dvh - var(--spacing-topbar));
 

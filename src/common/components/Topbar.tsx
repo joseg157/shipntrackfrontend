@@ -26,7 +26,7 @@ function Topbar({ showMenuIconOnMobile, onToggleMenu }: TopbarProps) {
         },
       })}
     >
-      <Toolbar className="tw:h-full">
+      <Toolbar className="tw:h-full tw:min-h-0">
         {showMenuIconOnMobile && (
           <IconButton
             className="tw:mr-4"
