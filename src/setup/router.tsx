@@ -1,4 +1,5 @@
 import { createBrowserRouter, type RouteObject } from 'react-router';
+import { RequireAuth, LoginAuth } from '@features/auth';
 
 // Protected routes
 import MainLayout from '@layouts/MainLayout';
@@ -28,8 +29,14 @@ const publicRoutes: RouteObject[] = [
 ];
 
 const router = createBrowserRouter([
-  { element: <PublicLayout />, children: publicRoutes },
-  { element: <MainLayout />, children: protectedRoutes },
+  {
+    element: <LoginAuth />,
+    children: [{ element: <PublicLayout />, children: publicRoutes }],
+  },
+  {
+    element: <RequireAuth />,
+    children: [{ element: <MainLayout />, children: protectedRoutes }],
+  },
 ]);
 
 export default router;

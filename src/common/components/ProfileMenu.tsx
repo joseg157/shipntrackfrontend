@@ -7,6 +7,8 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
+import { useLogout } from '@features/auth';
+
 const profileMenuOptions = [
   {
     label: 'Home',
@@ -22,6 +24,7 @@ function ProfileMenu() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const { mutate } = useLogout();
 
   const isOpen = Boolean(anchorEl);
 
@@ -40,6 +43,7 @@ function ProfileMenu() {
 
   const handleLogout = () => {
     handleClose();
+    mutate();
     // Log out api call
   };
 
@@ -60,8 +64,10 @@ function ProfileMenu() {
         anchorEl={anchorEl}
         open={isOpen}
         onClose={handleClose}
-        MenuListProps={{
-          className: 'tw:w-28 tw:lg:w-32',
+        slotProps={{
+          list: {
+            className: 'tw:w-28 tw:lg:w-32',
+          },
         }}
       >
         {profileMenuOptions.map(({ label, path }) => (

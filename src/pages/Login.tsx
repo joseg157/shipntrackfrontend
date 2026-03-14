@@ -17,11 +17,7 @@ import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 import withDocumentTitle from '@components/withDocumentTitle';
 import Copyright from '@components/Copyright';
 import { Form, createRHFController } from '@features/form';
-
-type LoginRequest = {
-  username: string;
-  password: string;
-};
+import { type LoginRequest, useLogin } from '@features/auth';
 
 const defaultValues: LoginRequest = {
   username: '',
@@ -32,6 +28,7 @@ const RHFController = createRHFController<LoginRequest>();
 
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
+  const { mutate, isPending } = useLogin();
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -41,9 +38,13 @@ function Login() {
     event.preventDefault();
   };
 
+  const onSubmit = (data: LoginRequest) => {
+    mutate(data);
+  };
+
   return (
     <div className="tw:flex tw:h-screen-without-topbar">
-      <Backdrop open={false}>
+      <Backdrop open={isPending}>
         <CircularProgress color="inherit" />
       </Backdrop>
 
@@ -61,6 +62,7 @@ function Login() {
           <Paper className="tw:p-6 tw:md:p-8">
             <Form
               defaultValues={defaultValues}
+              onSubmit={onSubmit}
               submitButtonText="Login"
               title="Login"
               slotProps={{

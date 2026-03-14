@@ -2,6 +2,7 @@ import { toast } from 'react-toastify';
 import { isAxiosError, AxiosError } from 'axios';
 
 interface ErrorResponse {
+  errorId?: string;
   message?: string;
 }
 
@@ -42,7 +43,9 @@ const errorToastHandler = (error: Error | AxiosErrorWithResponse) => {
 
   if (error.response?.data?.message) {
     // Server Response
-    toast.error(`Error: ${error.response.data.message}, Status: ${error.response.status}`);
+    toast.error(
+      `Error: ${error.response.data.message}, Status: ${error.response.status} ${error.response.data?.errorId ? `, Error ID: ${error.response.data.errorId}` : ''}`,
+    );
   } else if (offlineResponse) {
     // Network or offline related errors
     toast.error(offlineResponse);
