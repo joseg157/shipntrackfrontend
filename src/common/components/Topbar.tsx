@@ -6,13 +6,15 @@ import IconButton from '@mui/material/IconButton';
 import { MdMenuOpen } from 'react-icons/md';
 
 import { TbTruckDelivery } from 'react-icons/tb';
+import ProfileMenu from './ProfileMenu';
 
 interface TopbarProps {
   showMenuIconOnMobile?: boolean;
   onToggleMenu?: () => void;
+  showProfileMenu?: boolean;
 }
 
-function Topbar({ showMenuIconOnMobile, onToggleMenu }: TopbarProps) {
+function Topbar({ showMenuIconOnMobile, onToggleMenu, showProfileMenu }: TopbarProps) {
   // Laptop: Z-index set to 1201 to be above MUI Drawers (default Drawer z-index 1200)
   // We want the Topbar to be above the Drawer during breakpoints md (and up)
 
@@ -43,6 +45,12 @@ function Topbar({ showMenuIconOnMobile, onToggleMenu }: TopbarProps) {
         <Typography variant="h6" className="tw:font-semibold">
           ShipNTrack
         </Typography>
+
+        {showProfileMenu && (
+          <div className="tw:flex-1 tw:text-right">
+            <ProfileMenu />
+          </div>
+        )}
       </Toolbar>
     </Appbar>
   );

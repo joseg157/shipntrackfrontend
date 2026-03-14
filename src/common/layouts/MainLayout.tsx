@@ -36,6 +36,7 @@ function MainLayout() {
       defaultSidebarCollapsed={isSidebarCollapsed}
       onChangeSidebarCollapsed={(collapsed) => setIsSidebarCollapsed(collapsed)}
       navigationItems={navigationItems}
+      showProfileMenu
     >
       <Outlet />
     </DashboardLayout>

@@ -48,6 +48,11 @@ interface DashboardLayoutProps {
    */
 
   navigationItems?: NavigationItems;
+
+  /**
+   * Should show the profile menu in the topbar.
+   */
+  showProfileMenu?: boolean;
 }
 
 function DashboardLayout({
@@ -55,6 +60,7 @@ function DashboardLayout({
   onChangeSidebarCollapsed,
   children,
   navigationItems,
+  showProfileMenu,
 }: DashboardLayoutProps) {
   const theme = useTheme();
   const location = useLocation();
@@ -192,6 +198,7 @@ function DashboardLayout({
       <Topbar
         showMenuIconOnMobile={!isOverSmViewport}
         onToggleMenu={handleSetNavigationExpanded(true)}
+        showProfileMenu={showProfileMenu}
       />
 
       {/* Mobile */}
