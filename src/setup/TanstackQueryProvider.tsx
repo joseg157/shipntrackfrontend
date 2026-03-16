@@ -1,7 +1,7 @@
 import { QueryClient, QueryClientProvider, QueryCache, MutationCache } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import errorToastHandler from '@utils/errorToastHandler';
+import { errorToastHandler } from '@utils/errorHandler';
 
 const queryClient = new QueryClient({
   defaultOptions: {

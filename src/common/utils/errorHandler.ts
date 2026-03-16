@@ -8,13 +8,10 @@ interface ErrorResponse {
 
 interface AxiosErrorWithResponse extends AxiosError<ErrorResponse> {}
 
-const errorToastHandler = (error: Error | AxiosErrorWithResponse) => {
-  if (!isAxiosError<ErrorResponse>(error)) {
-    return;
+export const errorMessage = (error: Error | AxiosErrorWithResponse): string => {
+  if (!isAxiosError(error)) {
+    return error.message;
   }
-
-  // Network related errors might not have a response
-
   let offlineResponse: string | undefined;
 
   // Network related errors
@@ -42,17 +39,16 @@ const errorToastHandler = (error: Error | AxiosErrorWithResponse) => {
   }
 
   if (error.response?.data?.message) {
-    // Server Response
-    toast.error(
-      `Error: ${error.response.data.message}, Status: ${error.response.status} ${error.response.data?.errorId ? `, Error ID: ${error.response.data.errorId}` : ''}`,
-    );
+    return `Error: ${error.response.data.message}, Status: ${error.response.status} ${error.response.data?.errorId ? `, Error ID: ${error.response.data.errorId}` : ''}`;
   } else if (offlineResponse) {
-    // Network or offline related errors
-    toast.error(offlineResponse);
-  } else {
-    // Unknown error
-    toast.error('An unknown error occurred.');
+    return offlineResponse;
   }
+
+  return `An unexpected error occurred: ${error.message}`;
 };
 
-export default errorToastHandler;
+export const errorToastHandler = (error: Error | AxiosErrorWithResponse) => {
+  const message = errorMessage(error);
+
+  toast.error(message);
+};
