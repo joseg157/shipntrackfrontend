@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { logout } from '@services/auth.service';
 import useAuth from './useAuth';
 import usePersistLogin from './usePersistLogin';
+import { clearAccessToken } from '@lib/authStore';
 
 const useLogout = () => {
   const { setAuth } = useAuth();
@@ -16,6 +17,7 @@ const useLogout = () => {
     },
     onSettled: () => {
       setAuth(undefined);
+      clearAccessToken();
     },
   });
 

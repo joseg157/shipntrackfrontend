@@ -1,40 +1,90 @@
-import axios,{
+import axios, {
   type Method,
   type AxiosRequestConfig,
-//   AxiosError,
-//   InternalAxiosRequestConfig,
+  type AxiosError,
+  type InternalAxiosRequestConfig,
   type AxiosInstance,
 } from 'axios';
 
+import { type LoginResponse } from '@features/auth';
+import { getAccessToken, setAccessToken, clearAccessToken } from '@lib/authStore';
+
 const BASE_URL = 'https://localhost:44373/api/';
 
-export interface RequestConfig  extends AxiosRequestConfig {
+const apiSetup = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  withCredentials: true,
+});
+
+interface RequestConfig extends AxiosRequestConfig {
   method: Method;
 }
 
 const baseApiSetup =
   (setup: AxiosInstance) =>
-  async <T>( configs : RequestConfig) => {
+  async <T>(configs: RequestConfig) => {
     const response = await setup.request<T>(configs);
 
     return response.data;
   };
 
-const api = baseApiSetup(axios.create({
-  baseURL: BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true,
-}));
+const api = baseApiSetup(apiSetup);
 
-const publicApi = baseApiSetup(axios.create({
-  baseURL: BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true,
-}));
+apiSetup.interceptors.request.use(
+  (config) => {
+    const accessToken = getAccessToken();
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
 
-export { api, publicApi };
-export type {AxiosError, isAxiosError, InternalAxiosRequestConfig} from 'axios';
+    return config;
+  },
+  (error: AxiosError) => Promise.reject(error),
+);
+
+apiSetup.interceptors.response.use(
+  (response) => response,
+  async (error: AxiosError) => {
+    const originalRequest = error.config as InternalAxiosRequestConfig & {
+      retry?: boolean;
+    };
+
+    // avoid login, logout, refresh token
+    const originalRequestUrl = originalRequest.url || '';
+    const excluidedUrls = ['Auth/login', 'Auth/logout', 'Auth/refreshToken'];
+    if (excluidedUrls.some((url) => originalRequestUrl.includes(url))) {
+      return Promise.reject(error);
+    }
+
+    if (error.response?.status === 401 && !originalRequest.retry) {
+      originalRequest.retry = true;
+
+      try {
+        const data = await api<LoginResponse>({
+          method: 'GET',
+          url: '/auth/refreshToken',
+        });
+
+        if (data?.token) {
+          setAccessToken(data.token);
+          originalRequest.headers.Authorization = `Bearer ${data.token}`;
+        }
+
+        return apiSetup(originalRequest);
+      } catch (refreshTokenError) {
+        window.dispatchEvent(new Event('unauthorized'));
+        clearAccessToken();
+
+        return Promise.reject(refreshTokenError);
+      }
+    }
+
+    return Promise.reject(error);
+  },
+);
+
+export { api };
+export type { AxiosError, isAxiosError, InternalAxiosRequestConfig } from 'axios';

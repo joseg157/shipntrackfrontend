@@ -1,5 +1,6 @@
-import { createContext, useState, useMemo } from 'react';
-import type { AuthContextValue, LoginResponse } from '../auth.types';
+import { createContext, useState, useMemo, useEffect } from 'react';
+import type { AuthContextValue, AuthValue } from '../auth.types';
+import { PERSIST_LOGIN_KEY } from '../constants';
 
 const AuthContext = createContext<AuthContextValue | undefined>({
   auth: undefined,
@@ -11,9 +12,22 @@ interface AuthProviderProps {
 }
 
 function AuthProvider({ children }: AuthProviderProps) {
-  const [auth, setAuth] = useState<LoginResponse | undefined>(undefined);
+  const [auth, setAuth] = useState<AuthValue | undefined>(undefined);
 
   const contextValue = useMemo(() => ({ auth, setAuth }), [auth]);
+
+  useEffect(() => {
+    const onUnauthorized = () => {
+      setAuth(undefined);
+      localStorage.removeItem(PERSIST_LOGIN_KEY);
+    };
+
+    window.addEventListener('unauthorized', onUnauthorized);
+
+    return () => {
+      window.removeEventListener('unauthorized', onUnauthorized);
+    };
+  }, []);
 
   return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
 }

@@ -5,7 +5,7 @@ import useAuth from '../hooks/useAuth';
 function LoginAuth() {
   const { auth } = useAuth();
 
-  return auth?.token ? <Navigate to="/" replace /> : <Outlet />;
+  return auth?.isAuthenticated ? <Navigate to="/" replace /> : <Outlet />;
 }
 
 export default LoginAuth;

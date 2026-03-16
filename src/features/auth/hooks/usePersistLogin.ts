@@ -1,8 +1,9 @@
 import useLocalStorage from '@hooks/useLocalStorage';
+import { PERSIST_LOGIN_KEY } from '../constants';
 
 const usePersistLogin = () =>
   useLocalStorage({
-    key: import.meta.env.PROD ? 'allow' : 'persist_login_dev',
+    key: PERSIST_LOGIN_KEY,
     initialValue: false,
   });
 

@@ -11,7 +11,13 @@ export interface LoginResponse {
   token?: string;
 }
 
+export interface AuthValue {
+  userId?: string;
+  username?: string;
+  isAuthenticated: boolean;
+}
+
 export interface AuthContextValue {
-  auth?: LoginResponse;
-  setAuth: Dispatch<SetStateAction<LoginResponse | undefined>>;
+  auth?: AuthValue;
+  setAuth: Dispatch<SetStateAction<AuthValue | undefined>>;
 }
