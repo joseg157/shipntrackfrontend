@@ -4,3 +4,4 @@ coverage
 .vscode 
 .dist 
 temp
+pnpm-lock.yaml

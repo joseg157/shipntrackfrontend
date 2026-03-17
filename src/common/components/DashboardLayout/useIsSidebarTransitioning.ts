@@ -6,8 +6,8 @@ const useIsSidebarTransitioning = (isSidebarExpanded: boolean, theme: Theme) => 
   const [isSidebarFullyCollapsed, setIsSidebarFullyCollapsed] = useState(!isSidebarExpanded);
 
   useEffect(() => {
-    let immediateTimeout: undefined | number;
-    let transitionTime: undefined | number;
+    let immediateTimeout: ReturnType<typeof setTimeout> | number;
+    let transitionTime: ReturnType<typeof setTimeout> | number;
 
     if (isSidebarExpanded) {
       // Expanding then we set Collapsed to false immediately
