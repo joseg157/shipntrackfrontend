@@ -38,11 +38,17 @@ export const errorMessage = (error: Error | AxiosErrorWithResponse): string => {
       break;
   }
 
-  if (error.response?.data?.message) {
-    return `Error: ${error.response.data.message}, Status: ${error.response.status} ${error.response.data?.errorId ? `, Error ID: ${error.response.data.errorId}` : ''}`;
-  } else if (offlineResponse) {
-    return offlineResponse;
+  let responseErrorMessage: string | undefined;
+  const errorResponseData = error?.response?.data as ErrorResponse | string | undefined;
+
+  if (typeof errorResponseData === 'string') {
+    responseErrorMessage = `Error: ${errorResponseData}, Status: ${error.response?.status}`;
+  } else if (errorResponseData?.message) {
+    responseErrorMessage = `Error: ${errorResponseData.message}, Status: ${error.response?.status} ${errorResponseData.errorId ? `, Error ID: ${errorResponseData.errorId}` : ''}`;
   }
+
+  if (responseErrorMessage) return responseErrorMessage;
+  else if (offlineResponse) return offlineResponse;
 
   return `An unexpected error occurred: ${error.message}`;
 };
