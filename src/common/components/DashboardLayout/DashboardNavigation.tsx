@@ -135,7 +135,8 @@ function SidebarPageItem({
         >
           <ListItemButton
             className={cn('tw:min-h-10 tw:rounded-lg tw:p-0 tw:px-2', {
-              'tw:bg-sky-300/60 tw:text-black': path && isActiveLink(currentPath || '', path || ''),
+              'tw:bg-sky-300/60 tw:text-black tw:dark:bg-sky-400':
+                path && isActiveLink(currentPath || '', path || ''),
             })}
             onClick={children ? undefined : handlePageItemClick}
           >

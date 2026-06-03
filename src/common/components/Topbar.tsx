@@ -2,10 +2,14 @@ import Appbar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import SunnyIcon from '@mui/icons-material/Sunny';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 import { MdMenuOpen } from 'react-icons/md';
 
 import { TbTruckDelivery } from 'react-icons/tb';
+import useDarkMode from '@hooks/useDarkMode';
+
 import ProfileMenu from './ProfileMenu';
 
 interface TopbarProps {
@@ -15,6 +19,8 @@ interface TopbarProps {
 }
 
 function Topbar({ showMenuIconOnMobile, onToggleMenu, showProfileMenu }: TopbarProps) {
+  const [mode, setMode] = useDarkMode();
+
   // Laptop: Z-index set to 1201 to be above MUI Drawers (default Drawer z-index 1200)
   // We want the Topbar to be above the Drawer during breakpoints md (and up)
 
@@ -48,6 +54,12 @@ function Topbar({ showMenuIconOnMobile, onToggleMenu, showProfileMenu }: TopbarP
 
         {showProfileMenu && (
           <div className="tw:flex-1 tw:text-right">
+            <IconButton
+              color="inherit"
+              onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
+            >
+              {mode === 'light' ? <DarkModeIcon /> : <SunnyIcon />}
+            </IconButton>
             <ProfileMenu />
           </div>
         )}

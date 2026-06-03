@@ -17,20 +17,23 @@ export interface FormProps<TFieldValues extends FieldValues> {
 
   onSubmit?: SubmitHandler<TFieldValues>;
   onError?: SubmitErrorHandler<TFieldValues>;
+  onCancel?: () => void;
 
   useFormProps?: Omit<UseFormProps<TFieldValues>, 'defaultValues' | 'resolver'>;
   defaultValues?: DefaultValues<TFieldValues>;
   readOnly?: boolean;
 
-  resetButtonText?: string;
+  cancelButtonText?: string;
+  hideCancelButton?: boolean;
+  hideSubmitButton?: boolean;
   submitButtonText?: string;
   title?: string;
 
   slotProps?: {
     formContainerProps?: React.HTMLAttributes<HTMLFormElement>;
     titleProps?: TypographyProps;
-    submitButtonProps?: ButtonProps & { hideSubmitButton?: boolean };
-    resetButtonProps?: ButtonProps & { hideResetButton?: boolean };
+    submitButtonProps?: ButtonProps;
+    cancelButtonProps?: ButtonProps;
   };
 }
 

@@ -17,9 +17,12 @@ function Form<T extends FieldValues>({
   onError,
 
   slotProps = {},
-  resetButtonText = 'Reset',
+  cancelButtonText = 'Cancel',
+  hideCancelButton = true,
   submitButtonText = 'Submit',
+  hideSubmitButton = false,
   title,
+  onCancel: handleOnCancel,
 }: FormProps<T>) {
   const methods = useForm<T>({
     defaultValues,
@@ -35,14 +38,11 @@ function Form<T extends FieldValues>({
   };
 
   const onReset = () => {
+    handleOnCancel?.();
     reset(defaultValues);
   };
 
-  const { resetButtonProps, submitButtonProps } = slotProps;
-  const { hideResetButton = true, ...restResetButtonProps } = resetButtonProps || {};
-  const { hideSubmitButton = true, ...restSubmitButtonProps } = submitButtonProps || {};
-
-  const shouldHideBothButtons = Boolean(hideResetButton && hideSubmitButton);
+  const shouldHideBothButtons = Boolean(hideCancelButton && hideSubmitButton);
 
   return (
     <FormProvider {...formContextValues}>
@@ -67,19 +67,24 @@ function Form<T extends FieldValues>({
         {footer ||
           (readOnly || shouldHideBothButtons ? null : (
             <div className="tw:flex tw:justify-end tw:gap-2">
-              {!hideResetButton && (
+              {!hideCancelButton && (
                 <Button
                   variant="outlined"
                   color="secondary"
                   type="button"
-                  {...restResetButtonProps}
+                  {...slotProps?.cancelButtonProps}
                   onClick={onReset}
                 >
-                  {resetButtonText}
+                  {cancelButtonText}
                 </Button>
               )}
 
-              <Button variant="contained" color="primary" type="submit" {...restSubmitButtonProps}>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                {...slotProps?.submitButtonProps}
+              >
                 {submitButtonText}
               </Button>
             </div>

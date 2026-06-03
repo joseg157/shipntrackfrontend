@@ -1,5 +1,4 @@
-import { useMemo } from 'react';
-import useMediaQuery from '@mui/material/useMediaQuery';
+import { useMemo, useEffect } from 'react';
 import { StyledEngineProvider, ThemeProvider, type Theme } from '@mui/material/styles';
 import GlobalStyles from '@mui/material/GlobalStyles';
 
@@ -8,18 +7,26 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 import { createDefaultThemeMode } from '@assets/theme';
+import useDarkMode from '@hooks/useDarkMode';
 
 interface MuiProviderProps {
   children: React.ReactNode;
 }
 
 function MuiProvider({ children }: MuiProviderProps) {
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: light)');
+  const [mode] = useDarkMode();
 
-  const defaultTheme = useMemo<Theme>(
-    () => createDefaultThemeMode(prefersDarkMode ? 'dark' : 'light'),
-    [prefersDarkMode],
-  );
+  // Sync Tailwind class with state
+  useEffect(() => {
+    const root = window.document.documentElement;
+    if (mode === 'dark') {
+      root.classList.add('dark');
+    } else {
+      root.classList.remove('dark');
+    }
+  }, [mode]);
+
+  const defaultTheme = useMemo<Theme>(() => createDefaultThemeMode(mode), [mode]);
 
   return (
     <StyledEngineProvider enableCssLayer>

@@ -9,7 +9,9 @@ import axios, {
 import { type LoginResponse } from '@features/auth';
 import { getAccessToken, setAccessToken, clearAccessToken } from '@lib/authStore';
 
-const BASE_URL = 'https://localhost:44373/api/';
+const BASE_URL = 'https://localhost:44340/api/';
+
+const excluidedUrls = ['Auth/login', 'Auth/logout', 'Auth/refreshToken'];
 
 const apiSetup = axios.create({
   baseURL: BASE_URL,
@@ -54,7 +56,7 @@ apiSetup.interceptors.response.use(
 
     // avoid login, logout, refresh token
     const originalRequestUrl = originalRequest.url || '';
-    const excluidedUrls = ['Auth/login', 'Auth/logout', 'Auth/refreshToken'];
+
     if (excluidedUrls.some((url) => originalRequestUrl.includes(url))) {
       return Promise.reject(error);
     }
@@ -65,7 +67,7 @@ apiSetup.interceptors.response.use(
       try {
         const data = await api<LoginResponse>({
           method: 'GET',
-          url: '/auth/refreshToken',
+          url: '/Auth/refreshToken',
         });
 
         if (data?.token) {
@@ -75,6 +77,7 @@ apiSetup.interceptors.response.use(
 
         return apiSetup(originalRequest);
       } catch (refreshTokenError) {
+        console.error('Token refresh failed:', refreshTokenError);
         window.dispatchEvent(new Event('unauthorized'));
         clearAccessToken();
 
@@ -82,6 +85,7 @@ apiSetup.interceptors.response.use(
       }
     }
 
+    console.error('API request failed:', error);
     return Promise.reject(error);
   },
 );

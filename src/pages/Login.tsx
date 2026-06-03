@@ -66,7 +66,7 @@ function Login() {
               submitButtonText="Login"
               title="Login"
               slotProps={{
-                submitButtonProps: { fullWidth: true, hideSubmitButton: false },
+                submitButtonProps: { fullWidth: true },
               }}
             >
               <RHFController
