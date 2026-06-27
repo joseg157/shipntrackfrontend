@@ -27,7 +27,6 @@ interface GetDefaultMRTOptionsParams {
 }
 
 const stringColumnFilterModeOptions: MRT_FilterOption[] = [
-  'fuzzy',
   'contains',
   'startsWith',
   'endsWith',
@@ -79,6 +78,10 @@ export const getDefaultMRTOptions = <T extends MRT_RowData>({
     globalFilterFn: 'contains',
   },
 
+  defaultColumn: {
+    filterFn: 'contains',
+  },
+
   state: {
     isLoading,
     showAlertBanner: isError,
@@ -106,11 +109,12 @@ export const getDefaultMRTOptions = <T extends MRT_RowData>({
 
   positionActionsColumn: 'last',
   positionExpandColumn: 'first',
-  positionGlobalFilter: 'left',
+  positionGlobalFilter: 'none',
   positionToolbarAlertBanner: 'bottom',
 
   enableStickyHeader: true,
   enableColumnFilterModes: true,
   enableHiding: false,
   enableDensityToggle: false,
+  enableTopToolbar: false,
 });

@@ -4,6 +4,19 @@ import { setAccessToken } from '@lib/authStore';
 
 import useAuth from './useAuth';
 import usePersistLogin from './usePersistLogin';
+import { DEVICE_ID_KEY } from '../constants';
+import type { LoginRequest } from '../auth.types';
+
+const getDeviceId = () => {
+  let deviceId = localStorage.getItem(DEVICE_ID_KEY);
+
+  if (!deviceId) {
+    deviceId = crypto.randomUUID();
+    localStorage.setItem(DEVICE_ID_KEY, deviceId);
+  }
+
+  return deviceId;
+};
 
 const useLogin = () => {
   const { setAuth } = useAuth();
@@ -12,7 +25,8 @@ const useLogin = () => {
   // need to remove refreshToken query cache on login, in case it exists
 
   const mutation = useMutation({
-    mutationFn: login,
+    // mutationFn: login,
+    mutationFn: (data: LoginRequest) => login({ ...data, deviceId: getDeviceId() }),
     onSettled: () => {
       queryClient.removeQueries({ queryKey: ['refreshToken'] });
     },

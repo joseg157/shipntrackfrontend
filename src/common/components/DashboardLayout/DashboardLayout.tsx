@@ -244,7 +244,7 @@ function DashboardLayout({
         {/* Fixed Placement: Make sure the contents is placed below the topbar component */}
         <div className="tw:h-topbar" />
 
-        <div className="tw:flex tw:flex-1 tw:flex-col tw:overflow-auto tw:px-2 tw:pt-4">
+        <div className="tw:flex tw:flex-1 tw:flex-col tw:overflow-auto tw:px-4 tw:pt-4">
           <div className="tw:flex-1">{children}</div>
 
           <div className="tw:pb-2">

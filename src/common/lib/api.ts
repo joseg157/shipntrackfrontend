@@ -1,9 +1,10 @@
-import axios, {
+import {
   type Method,
   type AxiosRequestConfig,
   type AxiosError,
   type InternalAxiosRequestConfig,
   type AxiosInstance,
+  create,
 } from 'axios';
 
 import { type LoginResponse } from '@features/auth';
@@ -13,7 +14,7 @@ const BASE_URL = 'https://localhost:44340/api/';
 
 const excluidedUrls = ['Auth/login', 'Auth/logout', 'Auth/refreshToken'];
 
-const apiSetup = axios.create({
+const apiSetup = create({
   baseURL: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
@@ -77,7 +78,6 @@ apiSetup.interceptors.response.use(
 
         return apiSetup(originalRequest);
       } catch (refreshTokenError) {
-        console.error('Token refresh failed:', refreshTokenError);
         window.dispatchEvent(new Event('unauthorized'));
         clearAccessToken();
 
@@ -85,7 +85,6 @@ apiSetup.interceptors.response.use(
       }
     }
 
-    console.error('API request failed:', error);
     return Promise.reject(error);
   },
 );

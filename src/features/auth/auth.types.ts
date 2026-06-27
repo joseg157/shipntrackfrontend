@@ -3,12 +3,13 @@ import type { Dispatch, SetStateAction } from 'react';
 export interface LoginRequest {
   username: string;
   password: string;
+  deviceId?: string;
 }
 
 export interface LoginResponse {
   userId?: string;
   username?: string;
-  token?: string;
+  token?: string; // access token
 }
 
 export interface AuthValue {
