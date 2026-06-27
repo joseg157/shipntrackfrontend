@@ -1,19 +1,27 @@
+/* eslint-disable react-refresh/only-export-components */
+import { lazy } from 'react';
 import { createBrowserRouter, type RouteObject } from 'react-router';
 import { RequireAuth, LoginAuth } from '@features/auth';
 
 // Protected routes
-import MainLayout from '@layouts/MainLayout';
-import Home from '@pages/Home';
+// import MainLayout from '@layouts/MainLayout';
+const MainLayout = lazy(() => import('@layouts/MainLayout'));
+const Home = lazy(() => import('@pages/Home'));
+const UserManagement = lazy(() => import('@pages/UserManagement'));
+import NotFound from '@pages/NotFound';
 
 // Public routes
 import PublicLayout from '@layouts/PublicLayout';
 import Login from '@pages/Login';
-import NotFound from '@pages/NotFound';
 
 const protectedRoutes: RouteObject[] = [
   {
     path: '/',
     element: <Home />,
+  },
+  {
+    path: '/users',
+    element: <UserManagement />,
   },
   {
     path: '*',

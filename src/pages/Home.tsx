@@ -1,5 +1,9 @@
+import withDocumentTitle from '@components/withDocumentTitle';
+
 function Home() {
   return <h6 className="tw:underline">Hello Vite + TS + React!</h6>;
 }
 
-export default Home;
+const HomeWithTitle = withDocumentTitle(Home, { documentTitle: 'Home' });
+
+export default HomeWithTitle;
