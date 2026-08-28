@@ -11,7 +11,6 @@ import type { TypographyProps } from '@mui/material/Typography';
 import type { ButtonProps } from '@mui/material/Button';
 
 export interface FormProps<TFieldValues extends FieldValues> {
-  header?: React.ReactNode;
   children: React.ReactNode;
   footer?: React.ReactNode;
 
@@ -27,7 +26,6 @@ export interface FormProps<TFieldValues extends FieldValues> {
   hideCancelButton?: boolean;
   hideSubmitButton?: boolean;
   submitButtonText?: string;
-  title?: string;
 
   slotProps?: {
     formContainerProps?: React.HTMLAttributes<HTMLFormElement>;

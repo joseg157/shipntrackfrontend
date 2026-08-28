@@ -14,7 +14,7 @@ import {
 
 import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 
-import withDocumentTitle from '@components/withDocumentTitle';
+import DocumentTitle from '@components/DocumentTitle';
 import Copyright from '@components/Copyright';
 import { Form, createRHFController } from '@features/form';
 import { type LoginRequest, useLogin } from '@features/auth';
@@ -64,11 +64,17 @@ function Login() {
               defaultValues={defaultValues}
               onSubmit={onSubmit}
               submitButtonText="Login"
-              title="Login"
               slotProps={{
                 submitButtonProps: { fullWidth: true },
               }}
             >
+              <DocumentTitle
+                documentTitle="Login"
+                title="Login"
+                className="tw:text-center"
+                variant="h4"
+              />
+
               <RHFController
                 name="username"
                 label="Username"
@@ -133,8 +139,4 @@ function Login() {
   );
 }
 
-const LoginWithDocumentTitle = withDocumentTitle(Login, {
-  documentTitle: 'Login',
-});
-
-export default LoginWithDocumentTitle;
+export default Login;

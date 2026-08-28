@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import withDocumentTitle from '@components/withDocumentTitle';
+import DocumentTitle from '@components/DocumentTitle';
 
 function NotFound() {
   const navigate = useNavigate();
@@ -12,6 +12,7 @@ function NotFound() {
 
   return (
     <div className="tw:flex tw:h-full tw:items-center tw:justify-center">
+      <DocumentTitle documentTitle="Not Found" />
       <div className="tw:text-center">
         <Typography className="tw:font-normal" variant="h1">
           404
@@ -35,8 +36,4 @@ function NotFound() {
   );
 }
 
-const NotFoundWithDocumentTitle = withDocumentTitle(NotFound, {
-  documentTitle: 'Not Found',
-});
-
-export default NotFoundWithDocumentTitle;
+export default NotFound;

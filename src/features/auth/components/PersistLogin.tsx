@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { refreshToken } from '@services/auth.service';
-import withDocumentTitle from '@components/withDocumentTitle';
+import DocumentTitle from '@components/DocumentTitle';
 
 import useAuth from '../hooks/useAuth';
 import usePersistLogin from '../hooks/usePersistLogin';
@@ -16,12 +16,13 @@ function RefreshTokenLoading() {
     return null;
   }
 
-  return <div>Loading...</div>;
+  return (
+    <>
+      <DocumentTitle documentTitle="Loading ..." />
+      <div>Loading...</div>
+    </>
+  );
 }
-
-const RefreshTokenLoadingWithTitle = withDocumentTitle(RefreshTokenLoading, {
-  documentTitle: 'Loading...',
-});
 
 function PersistLogin({ children }: PersistLoginProps) {
   const { auth, setAuth } = useAuth();
@@ -56,7 +57,7 @@ function PersistLogin({ children }: PersistLoginProps) {
 
   if (isFetching || (isSuccess && !auth?.isAuthenticated)) {
     // You can replace this with a loading spinner or skeleton component, basically we are waiting for the refresh to complete
-    return <RefreshTokenLoadingWithTitle />;
+    return <RefreshTokenLoading />;
   }
 
   return <div className="tw:animate-fade-in">{children}</div>;

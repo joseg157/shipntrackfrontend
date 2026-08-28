@@ -1,10 +1,10 @@
 import { UserTable } from '@features/userManagement';
-import withDocumentTitle from '@components/withDocumentTitle';
+import DocumentTitle from '@components/DocumentTitle';
 
 function UserManagement() {
   return (
     <div>
-      <h5 className="tw:text-2xl tw:font-bold">Users</h5>
+      <DocumentTitle documentTitle="User Management" title="Users" />
       <p className="tw:mb-2 tw:text-gray-600">
         Manage your team and their account permissions here
       </p>
@@ -14,8 +14,4 @@ function UserManagement() {
   );
 }
 
-const UserManagementWithTitle = withDocumentTitle(UserManagement, {
-  documentTitle: 'User Management',
-});
-
-export default UserManagementWithTitle;
+export default UserManagement;

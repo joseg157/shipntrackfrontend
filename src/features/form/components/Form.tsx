@@ -1,5 +1,4 @@
 import { FormProvider, useForm, type FieldValues } from 'react-hook-form';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 import type { FormProps, FormContextValues } from '../interfaces/form.types';
@@ -9,7 +8,6 @@ function Form<T extends FieldValues>({
   useFormProps,
   readOnly,
 
-  header,
   children,
   footer,
 
@@ -21,7 +19,6 @@ function Form<T extends FieldValues>({
   hideCancelButton = true,
   submitButtonText = 'Submit',
   hideSubmitButton = false,
-  title,
   onCancel: handleOnCancel,
 }: FormProps<T>) {
   const methods = useForm<T>({
@@ -51,17 +48,6 @@ function Form<T extends FieldValues>({
         {...slotProps?.formContainerProps}
         className="tw:space-y-4"
       >
-        {header ||
-          (title && (
-            <Typography
-              variant="h4"
-              className="tw:text-center tw:font-bold"
-              {...slotProps?.titleProps}
-            >
-              {title}
-            </Typography>
-          ))}
-
         {children}
 
         {footer ||
