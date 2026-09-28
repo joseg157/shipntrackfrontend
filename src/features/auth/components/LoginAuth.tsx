@@ -1,11 +1,12 @@
 import { Navigate, Outlet } from 'react-router';
 
-import useAuth from '../hooks/useAuth';
+// import useAuth from '../hooks/useAuth';
+import useAuthToken from '../hooks/useAuthToken';
 
 function LoginAuth() {
-  const { auth } = useAuth();
+  const [accessToken] = useAuthToken();
 
-  return auth?.isAuthenticated ? <Navigate to="/" replace /> : <Outlet />;
+  return accessToken ? <Navigate to="/" replace /> : <Outlet />;
 }
 
 export default LoginAuth;

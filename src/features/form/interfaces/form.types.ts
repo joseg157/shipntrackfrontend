@@ -33,8 +33,13 @@ export interface FormProps<TFieldValues extends FieldValues> {
     submitButtonProps?: ButtonProps;
     cancelButtonProps?: ButtonProps;
   };
+
+  // React Hook Form return object, this option allows you to access the form methods outside the form component.
+  formReturn?: UseFormReturn<TFieldValues>;
 }
 
-export interface FormContextValues<T extends Record<string, unknown>> extends UseFormReturn<T> {
+export interface FormContextValues<
+  TFieldValues extends FieldValues,
+> extends UseFormReturn<TFieldValues> {
   readOnly?: boolean;
 }

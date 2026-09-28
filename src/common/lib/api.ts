@@ -7,8 +7,8 @@ import {
   create,
 } from 'axios';
 
-import { type LoginResponse } from '@features/auth';
-import { getAccessToken, setAccessToken, clearAccessToken } from '@lib/authStore';
+import { type LoginResponse, ACCESS_TOKEN_KEY } from '@features/auth';
+// import { getAccessToken, setAccessToken, clearAccessToken } from '@lib/authStore';
 
 const BASE_URL = 'https://localhost:44340/api/';
 
@@ -38,9 +38,10 @@ const api = baseApiSetup(apiSetup);
 
 apiSetup.interceptors.request.use(
   (config) => {
-    const accessToken = getAccessToken();
+    const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY);
     if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+      const parsedToken = JSON.parse(accessToken);
+      config.headers.Authorization = `Bearer ${parsedToken}`;
     }
 
     return config;
@@ -72,14 +73,15 @@ apiSetup.interceptors.response.use(
         });
 
         if (data?.token) {
-          setAccessToken(data.token);
-          originalRequest.headers.Authorization = `Bearer ${data.token}`;
+          const stringifyToken = JSON.stringify(data.token);
+          localStorage.setItem(ACCESS_TOKEN_KEY, stringifyToken);
+          originalRequest.headers.Authorization = `Bearer ${stringifyToken}`;
         }
 
         return apiSetup(originalRequest);
       } catch (refreshTokenError) {
         window.dispatchEvent(new Event('unauthorized'));
-        clearAccessToken();
+        localStorage.removeItem(ACCESS_TOKEN_KEY);
 
         return Promise.reject(refreshTokenError);
       }

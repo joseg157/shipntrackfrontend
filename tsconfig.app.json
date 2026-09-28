@@ -25,22 +25,22 @@
     "noUncheckedSideEffectImports": true,
 
     /* Absolute path support */
-    "baseUrl": ".",
+    // "baseUrl": ".",
     "paths": {
-      "@assets/*": ["src/assets/*"],
-      "@features/*": ["src/features/*"],
-      "@pages/*": ["src/pages/*"],
-      "@setup/*": ["src/setup/*"],
-      "@components/*": ["src/common/components/*"],
-      "@helpers/*": ["src/common/helpers/*"],
-      "@hooks/*": ["src/common/hooks/*"],
-      "@interfaces/*": ["src/common/interfaces/*"],
-      "@lib/*": ["src/common/lib/*"],
-      "@styles/*": ["src/common/styles/*"],
-      "@layouts/*": ["src/common/layouts/*"],
-      "@services/*": ["src/common/services/*"],
-      "@utils/*": ["src/common/utils/*"],
-      "@tests/*": ["src/common/tests/*"]
+      "@assets/*": ["./src/assets/*"],
+      "@features/*": ["./src/features/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@setup/*": ["./src/setup/*"],
+      "@components/*": ["./src/common/components/*"],
+      "@helpers/*": ["./src/common/helpers/*"],
+      "@hooks/*": ["./src/common/hooks/*"],
+      "@interfaces/*": ["./src/common/interfaces/*"],
+      "@lib/*": ["./src/common/lib/*"],
+      "@styles/*": ["./src/common/styles/*"],
+      "@layouts/*": ["./src/common/layouts/*"],
+      "@services/*": ["./src/common/services/*"],
+      "@utils/*": ["./src/common/utils/*"],
+      "@tests/*": ["./src/common/tests/*"]
     }
   },
   "include": ["src/**/*", "vite.config.ts", "eslint.config.js"]

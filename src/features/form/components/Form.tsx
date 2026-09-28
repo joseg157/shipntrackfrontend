@@ -20,6 +20,7 @@ function Form<T extends FieldValues>({
   submitButtonText = 'Submit',
   hideSubmitButton = false,
   onCancel: handleOnCancel,
+  formReturn: externalFormReturn,
 }: FormProps<T>) {
   const methods = useForm<T>({
     defaultValues,
@@ -27,10 +28,10 @@ function Form<T extends FieldValues>({
     ...useFormProps,
   });
 
-  const { handleSubmit, reset } = methods;
+  const { handleSubmit, reset } = externalFormReturn ?? methods;
 
   const formContextValues: FormContextValues<T> = {
-    ...methods,
+    ...(externalFormReturn ?? methods),
     readOnly,
   };
 
