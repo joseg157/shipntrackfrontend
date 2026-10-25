@@ -1,84 +1,88 @@
-import { FormProvider, useForm, type FieldValues } from 'react-hook-form';
-import Button from '@mui/material/Button';
+import React from 'react';
+import {
+  FormProvider,
+  type FieldValues,
+  type SubmitHandler,
+  type SubmitErrorHandler,
+  type UseFormReturn,
+} from 'react-hook-form';
 
-import type { FormProps, FormContextValues } from '../interfaces/form.types';
+import Button, { type ButtonProps } from '@mui/material/Button';
 
-function Form<T extends FieldValues>({
-  defaultValues,
-  useFormProps,
-  readOnly,
+interface FormProps<
+  TFormValues extends FieldValues,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  TContext = any,
+  TTransformedValues extends FieldValues | undefined = undefined,
+> {
+  children: React.ReactNode;
+  formMethods: UseFormReturn<TFormValues, TContext, TTransformedValues>;
 
+  onSubmit: SubmitHandler<TTransformedValues>;
+  onError?: SubmitErrorHandler<TFormValues>;
+  onCancel?: () => void;
+
+  // /** Hide the built-in action row entirely
+  hideActions?: boolean;
+  /** Replace the built-in action row completely. */
+  renderActions?: (
+    methods: UseFormReturn<TFormValues, TContext, TTransformedValues>,
+  ) => React.ReactNode;
+
+  slotProps?: {
+    form?: React.HTMLAttributes<HTMLFormElement>;
+    submitButton?: ButtonProps;
+    cancelButton?: ButtonProps;
+  };
+}
+
+function Form<
+  TFormValues extends FieldValues,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  TContext = any,
+  TTransformedValues extends FieldValues | undefined = undefined,
+>({
   children,
-  footer,
-
+  formMethods,
   onSubmit = () => {},
   onError,
+  onCancel,
+  hideActions,
+  renderActions,
+  slotProps,
+}: FormProps<TFormValues, TContext, TTransformedValues>) {
+  const { handleSubmit, reset } = formMethods;
 
-  slotProps = {},
-  cancelButtonText = 'Cancel',
-  hideCancelButton = true,
-  submitButtonText = 'Submit',
-  hideSubmitButton = false,
-  onCancel: handleOnCancel,
-  formReturn: externalFormReturn,
-}: FormProps<T>) {
-  const methods = useForm<T>({
-    defaultValues,
-    shouldFocusError: true,
-    ...useFormProps,
-  });
-
-  const { handleSubmit, reset } = externalFormReturn ?? methods;
-
-  const formContextValues: FormContextValues<T> = {
-    ...(externalFormReturn ?? methods),
-    readOnly,
+  const handleReset = () => {
+    reset();
+    onCancel?.();
   };
 
-  const onReset = () => {
-    handleOnCancel?.();
-    reset(defaultValues);
-  };
+  const defaultRenderActions = (
+    <div className="tw:flex tw:justify-end tw:gap-2">
+      <Button type="submit" {...slotProps?.submitButton}>
+        Submit
+      </Button>
 
-  const shouldHideBothButtons = Boolean(hideCancelButton && hideSubmitButton);
+      <Button type="button" onClick={handleReset} {...slotProps?.cancelButton}>
+        Cancel
+      </Button>
+    </div>
+  );
 
   return (
-    <FormProvider {...formContextValues}>
+    <FormProvider {...formMethods}>
       <form
-        onSubmit={handleSubmit(onSubmit, onError)}
-        {...slotProps?.formContainerProps}
         className="tw:space-y-4"
+        onSubmit={handleSubmit(onSubmit, onError)}
+        {...slotProps?.form}
       >
         {children}
 
-        {footer ||
-          (readOnly || shouldHideBothButtons ? null : (
-            <div className="tw:flex tw:justify-end tw:gap-2">
-              {!hideCancelButton && (
-                <Button
-                  variant="outlined"
-                  color="secondary"
-                  type="button"
-                  {...slotProps?.cancelButtonProps}
-                  onClick={onReset}
-                >
-                  {cancelButtonText}
-                </Button>
-              )}
-
-              <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-                {...slotProps?.submitButtonProps}
-              >
-                {submitButtonText}
-              </Button>
-            </div>
-          ))}
+        {!hideActions && (renderActions ? renderActions(formMethods) : defaultRenderActions)}
       </form>
     </FormProvider>
   );
 }
 
-export { Form };
+export default Form;

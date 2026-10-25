@@ -16,7 +16,7 @@ import { IoMdEye, IoMdEyeOff } from 'react-icons/io';
 
 import DocumentTitle from '@components/DocumentTitle';
 import Copyright from '@components/Copyright';
-import { Form, createRHFController } from '@features/form';
+import { createRHFController, Form, useForm, validators } from '@features/form';
 import { type LoginRequest, useLogin } from '@features/auth';
 
 const defaultValues: LoginRequest = {
@@ -29,6 +29,10 @@ const RHFController = createRHFController<LoginRequest>();
 function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const { mutate, isPending } = useLogin();
+
+  const formMethods = useForm<LoginRequest>({
+    defaultValues,
+  });
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -61,11 +65,15 @@ function Login() {
         <div className="tw:px-4 tw:lg:px-6">
           <Paper className="tw:p-6 tw:md:p-8">
             <Form
-              defaultValues={defaultValues}
+              formMethods={formMethods}
               onSubmit={onSubmit}
-              submitButtonText="Login"
               slotProps={{
-                submitButtonProps: { fullWidth: true },
+                cancelButton: {
+                  hidden: true,
+                },
+                submitButton: {
+                  fullWidth: true,
+                },
               }}
             >
               <DocumentTitle
@@ -79,7 +87,11 @@ function Login() {
                 name="username"
                 label="Username"
                 componentType="textfield"
-                rules={{ required: 'Username is required' }}
+                rules={{
+                  validate: {
+                    required: validators.required(),
+                  },
+                }}
               />
 
               <RHFController
@@ -87,7 +99,11 @@ function Login() {
                 componentType="textfield"
                 label="Password"
                 type={showPassword ? 'text' : 'password'}
-                rules={{ required: 'Password is required' }}
+                rules={{
+                  validate: {
+                    required: validators.required(),
+                  },
+                }}
                 slotProps={{
                   input: {
                     endAdornment: (
