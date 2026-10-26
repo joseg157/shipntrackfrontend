@@ -247,7 +247,7 @@ function DashboardLayout({
         <div className="tw:flex tw:flex-1 tw:flex-col tw:overflow-auto tw:px-4 tw:pt-4">
           <div className="tw:flex-1">{children}</div>
 
-          <div className="tw:pb-2">
+          <div className="tw:mt-8 tw:pb-2">
             <Copyright />
           </div>
         </div>

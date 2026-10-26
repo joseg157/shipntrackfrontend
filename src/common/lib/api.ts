@@ -8,7 +8,7 @@ import {
 } from 'axios';
 
 import { type LoginResponse, ACCESS_TOKEN_KEY } from '@features/auth';
-// import { getAccessToken, setAccessToken, clearAccessToken } from '@lib/authStore';
+import { toast } from 'react-toastify';
 
 const BASE_URL = 'https://localhost:44340/api/';
 
@@ -81,7 +81,9 @@ apiSetup.interceptors.response.use(
         return apiSetup(originalRequest);
       } catch (refreshTokenError) {
         window.dispatchEvent(new Event('unauthorized'));
-        localStorage.removeItem(ACCESS_TOKEN_KEY);
+        toast.error('Session expired. Please log in again.', {
+          toastId: 'session-expired',
+        });
 
         return Promise.reject(refreshTokenError);
       }
