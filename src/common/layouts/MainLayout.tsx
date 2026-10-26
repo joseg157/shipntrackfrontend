@@ -10,6 +10,7 @@ import { FaHome } from 'react-icons/fa'; // Example import for icons
 const navigationItems: NavigationItems = [
   { title: 'Home', path: '/', icon: <FaHome /> },
   { title: 'User Management', path: '/users', icon: <PeopleOutlinedIcon /> },
+  { title: 'Ground Shipments', path: '/ground-shipments' },
   // {
   //   title: 'Shipments',
   //   children: [

@@ -8,6 +8,7 @@ import { RequireAuth, LoginAuth } from '@features/auth';
 const MainLayout = lazy(() => import('@layouts/MainLayout'));
 const Home = lazy(() => import('@pages/Home'));
 const UserManagement = lazy(() => import('@pages/UserManagement'));
+const GroundShipment = lazy(() => import('@pages/GroundShipment'));
 import NotFound from '@pages/NotFound';
 
 // Public routes
@@ -22,6 +23,10 @@ const protectedRoutes: RouteObject[] = [
   {
     path: '/users',
     element: <UserManagement />,
+  },
+  {
+    path: '/ground-shipments',
+    element: <GroundShipment />,
   },
   {
     path: '*',

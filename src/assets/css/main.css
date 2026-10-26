@@ -322,3 +322,38 @@
   background-image: --value(--overlay-*);
   box-shadow: --value(--shadow-*);
 }
+
+.arrow-steps {
+  list-style: none;
+  display: flex;
+  padding: 0;
+}
+
+.arrow-steps li {
+  position: relative; /* Anchor for the absolute pseudo-element */
+  background: #34495e;
+  color: white;
+  padding: 10px 20px 10px 35px;
+  margin-right: 5px;
+}
+
+.arrow-steps li::after {
+  content: '';
+  position: absolute;
+  right: -15px; /* Pushes the triangle tip past the right edge */
+  top: 0;
+  z-index: 2; /* Forces it to overlap the next item */
+
+  /* Creates the triangle shape using thick borders */
+  border-left: 15px solid #34495e;
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+}
+
+/* Adjust colors for active states */
+.arrow-steps li.active {
+  background: #e74c3c;
+}
+.arrow-steps li.active::after {
+  border-left-color: #e74c3c;
+}
