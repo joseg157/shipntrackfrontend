@@ -1,4 +1,3 @@
-import type { IState } from '@interfaces/common.types';
 import { REFERENCE_PARTIES } from '../constants';
 import moment from 'moment';
 
@@ -12,7 +11,7 @@ export interface PartyAddress {
   storeNumber?: string; // Optional store number associated with the address
   address2?: string;
   city: string;
-  state: IState | null; // In reality this would be string but we will convert it to IState object if received from the backend as a string
+  state: string;
   postalCode: string;
   country: string;
   contactName?: string;

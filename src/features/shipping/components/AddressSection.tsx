@@ -1,5 +1,5 @@
 import { createRHFController, validators, useFormContext, useWatch } from '@features/form';
-import { usStates } from '@utils/constants';
+import { STATES } from '@utils/constants';
 import type { CreateGroundShipmentInput } from '../interfaces/groundShipment.types';
 import SectionCard from './SectionCard';
 
@@ -10,6 +10,8 @@ interface AddressSectionProps {
 }
 
 const RHFController = createRHFController<CreateGroundShipmentInput>();
+
+const stateOptions = Object.keys(STATES) as (keyof typeof STATES)[];
 
 function AddressSection({ prefix, title, icon }: AddressSectionProps) {
   const { control } = useFormContext<CreateGroundShipmentInput>();
@@ -92,9 +94,8 @@ function AddressSection({ prefix, title, icon }: AddressSectionProps) {
           name={`${prefix}.state`}
           componentType="autocomplete"
           label="State*"
-          options={usStates}
-          getOptionKey={(option) => option.abbreviation}
-          getOptionLabel={(option) => `${option.abbreviation} - ${option.name}`}
+          options={stateOptions}
+          getOptionLabel={(option) => (STATES[option] ? STATES[option] : '')}
           rules={{
             validate: {
               required: validators.required(),
