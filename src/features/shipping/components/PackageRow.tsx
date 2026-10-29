@@ -2,7 +2,7 @@ import MenuItem from '@mui/material/MenuItem';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 
 import { createRHFController, validators } from '@features/form';
 
@@ -24,7 +24,7 @@ function PackageRow({ index, onDelete }: PackageRowProps) {
           Package {index + 1}
         </span>
         <IconButton size="small" aria-label="Remove package" onClick={onDelete}>
-          <DeleteOutlineIcon fontSize="small" className="tw:text-red-400" />
+          <DeleteOutlinedIcon fontSize="small" className="tw:text-red-400" />
         </IconButton>
       </div>
 
