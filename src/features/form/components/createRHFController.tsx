@@ -166,7 +166,6 @@ const createRHFController = <TFieldValues extends FieldValues>() => {
             helperText: error?.message,
           },
         }}
-        enableAccessibleFieldDOMStructure={false}
       />
     );
   }

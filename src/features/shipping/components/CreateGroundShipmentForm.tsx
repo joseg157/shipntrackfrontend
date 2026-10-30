@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 
 import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
 import SaveOutlinedIcon from '@mui/icons-material/SaveOutlined';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import BusinessIcon from '@mui/icons-material/Business';
 import NoteOutlinedIcon from '@mui/icons-material/NoteOutlined';
 
@@ -69,7 +69,7 @@ function CreateGroundShipmentForm() {
             <Button
               color="error"
               variant="outlined"
-              startIcon={<DeleteOutlineIcon />}
+              startIcon={<DeleteOutlinedIcon />}
               className="tw:mr-2"
               size="small"
               onClick={onCancel}

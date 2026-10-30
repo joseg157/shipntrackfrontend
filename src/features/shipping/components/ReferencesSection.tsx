@@ -18,7 +18,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 
 import AddIcon from '@mui/icons-material/Add';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import BusinessIcon from '@mui/icons-material/Business';
 // import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import ReceiptLongOutlinedIcon from '@mui/icons-material/ReceiptLongOutlined';
@@ -284,7 +284,7 @@ function ReferencesSection() {
                             },
                           }}
                         >
-                          <DeleteOutlineIcon fontSize="small" className="tw:text-red-400" />
+                          <DeleteOutlinedIcon fontSize="small" className="tw:text-red-400" />
                         </IconButton>
                       </div>
                     ))}
